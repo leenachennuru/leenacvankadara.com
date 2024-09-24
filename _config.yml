@@ -1,0 +1,8 @@
+source:      .
+destination: ./_site
+includes:    ./_includes
+# baseurl: /~leenacvankadara
+
+collections:
+  projects:
+    output: true

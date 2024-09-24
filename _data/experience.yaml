@@ -1,0 +1,68 @@
+experiences:
+
+- place: "Gatsby Unit, UCL"
+  time: "Starting Feb 2025"
+  title: "Lecturer (Assistant Professor)"
+  subtitle: ""
+  category: "work"
+
+- place: "Amazon Research"
+  time: "January 2024 - now"
+  title: "Applied Scientist II"
+  subtitle: "AGI Foundations, Amazon"
+  category: "work"
+
+- place: "Amazon Research"
+  time: "January 2023 - now"
+  title: "Applied Scientist II"
+  subtitle: "Causality Lab"
+  category: "work"
+
+- place: "IMPRS-IS"
+  time: "2018 - 2022"
+  title: "Ph.D. Candidate"
+  subtitle: "Theory of Machine Learning Group"
+  category: "school"
+
+- place: "Amazon Research"
+  time: "Fall 2020"
+  title: "Applied Scientist, Intern"
+  subtitle: "Causality Lab"
+  category: "work"
+
+# - place: "LinkedIn"
+#   time: "Summer 2016"
+#   title: "Research Scientist, Intern"
+#   subtitle: "Experimentation Group"
+#   category: "work"
+
+# - place: "Amazon"
+#   time: "Summer 2014"
+#   title: "Machine Learning Scientist, Intern"
+#   subtitle: "Scalable Machine Learning Group"
+#   category: "work"
+
+- place: "Max Planck Institute (MPI-IS)"
+  time: "June - December 2018"
+  title: "Research Scientist, Intern"
+  subtitle: "Statistical Learning Theory Group"
+  category: "work"
+
+- place: "University of Tuebingen"
+  time: "April 2017 – June 2018"
+  title: "Teaching Assistant"
+  subtitle: "Theory of Machine learning<br/>"
+  category: "work"
+
+- place: "University of Tuebingen"
+  time: "2017"
+  title: "Master's Thesis"
+  subtitle: "Theory of Machine learning group"
+  category: "school"
+
+- place: "University of Hamburg"
+  time: "2014 - 2017"
+  title: "Master's Student"
+  subtitle: "Masters in Machine learning"
+  category: "school"
+

@@ -1,0 +1,170 @@
+papers:
+
+  - title: "On Feature Learning in Structured State Space Sequence Models"
+    authors: "<b>Leena C Vankadara*</b>, Jin Xu*, Moritz Haas, Volkan Cevher"
+    venue: "ICML NGSM Workshop 2024 <b style=color:#800020;>(Spotlight; Runner up for the best paper award)</b>"
+    paper_pdf: "https://sites.google.com/view/ngsmworkshop/accepted-papers?authuser=0"
+    selected: y
+
+  - title: "Effective Sharpness Aware Minimization Requires Layerwise Perturbation Scaling"
+    authors: "Moritz Haas, Jin Xu, Volkan Cevher, <b>Leena C Vankadara</b>"
+    venue: "ICML HiLD Workshop 2024"
+    paper_pdf: "https://openreview.net/forum?id=Qo6KUhQkPw"
+    selected: y
+
+  - title: "Self-compatibility: Evaluating causal discovery without ground truth"
+    authors: "Philipp M Faller, <b>Leena C Vankadara</b>, Atalanti A Mastakouri, Francesco Locatello, Dominik Janzing"
+    venue: "AISTATS 2024"
+    paper_pdf: "https://arxiv.org/abs/2307.09552"
+    selected: y
+
+  - title: "Reinterpreting causal discovery as the task of predicting unobserved joint statistics"
+    authors: "Dominik Janzing, Philipp M. Faller, <b>Leena C Vankadara</b>"
+    venue: "A preprint: Arxiv'2023"
+    paper_pdf: "https://arxiv.org/abs/2305.06894"
+    selected: y
+
+  - title: "Explaining Kernel Clustering via Decision Trees"
+    authors: "Maximilian Fleissner, <b>Leena C Vankadara</b>, Debarghya Ghoshdastidar"
+    venue: "ICLR 2024"
+    paper_pdf: "https://arxiv.org/abs/2402.09881"
+    selected: y
+
+  - title: "A Consistent Estimator for Confounding Strength"
+    authors: "Luca Rendsburg<sup>‡</sup>, <b>Leena C Vankadara<sup>‡</sup></b>, Debarghya Ghosdastidar, Ulrike von Luxburg"
+    venue: "A preprint: Arxiv'2022"
+    paper_pdf: "https://arxiv.org/pdf/2211.01903.pdf"
+    code: "https://github.com/leenachennuru/confounding-strength-estimation"
+    selected: y
+
+  - title: "Interpolation and Regularization for Causal Learning"
+    authors: "<b>Leena C Vankadara<sup>‡</sup></b>, Luca Rendsburg<sup>‡</sup>, Ulrike von Luxburg, Debarghya Ghoshdastidar"
+    venue: "NeurIPS'22: Neural Information Processing Systems. 2022."
+    paper_pdf: "https://arxiv.org/pdf/2202.09054.pdf"
+    code: "https://github.com/leenachennuru/Causal-double-descent"
+    selected: y
+
+  - title: "Causal Forecasting - Generalization Bounds for Autoregressive Models"
+    authors: "<b>Leena C Vankadara</b>, Philipp Michael Faller, Mila Hardt, Lenon Minorics, Debarghya Ghoshdastidar, Dominik Janzing"
+    venue: "UAI'22: Uncertainity in Artificial Intelligence. 2022."
+    paper_pdf: "https://arxiv.org/pdf/2111.09831.pdf"
+    selected: y
+
+  - title: "Graphon based Clustering and Testing of Networks - Algorithms and Theory"
+    authors: "Mahalakshmi Sabanayagam, <b>Leena C Vankadara</b>, Debarghya Ghoshdastidar"
+    venue: "ICLR'22: International Conference on Learning Representations. 2022"
+    paper_pdf: "https://arxiv.org/pdf/2110.02722.pdf"
+    selected: n
+
+  - title: "Learning Theory Can (Sometimes) Explain Generalisation in Graph Neural Networks"
+    authors: "Pascal Esser, <b>Leena C Vankadara</b>, Debarghya Ghoshdastidar"
+    venue: "NeurIPS'21: Neural Information Processing Systems. 2021"
+    paper_pdf: "https://proceedings.neurips.cc/paper/2021/file/e34376937c784505d9b4fcd980c2f1ce-Paper.pdf"
+    selected: n
+
+  - title: "Recovery Guarantees for Kernel-based Clustering under Non-parametric Mixture Models"
+    authors: "<b>Leena C Vankadara</b>, Sebastian Bordt, Ulrike von Luxburg, Debarghya Ghoshdastidar"
+    venue: "AISTATS'21: Artificial Intelligence and Statistics. 2021 <b style=color:#800020;>(Oral presentation; 3% of all submissions)</b>"
+    paper_pdf: "http://proceedings.mlr.press/v130/vankadara21a/vankadara21a.pdf"
+    selected: y
+
+  - title: "Insights into Ordinal Embedding Algorithms - A Systematic Evaluation"
+    authors: "<b>Leena C Vankadara</b>, Michael Lohaus, Siavash Haghiri, Faiz Ul Wahab, Ulrike von Luxburg"
+    venue: "JMLR. 2023"
+    paper_pdf: "https://arxiv.org/pdf/1912.01666.pdf"
+    selected: n
+
+  - title: "On the optimality of kernels for high-dimensional clustering"
+    authors: "<b>Leena C Vankadara</b>, Debarghya Ghoshdastidar"
+    venue: "AISTATS'20: Artificial Intelligence and Statistics. 2020"
+    paper_pdf: "https://arxiv.org/pdf/1912.00458.pdf"
+    selected: y
+
+  - title: "Measures of distortion for machine learning"
+    authors: "<b>Leena C Vankadara</b>, Ulrike von Luxburg"
+    venue: "NeurIPS'18: Neural Information Processing Systems. 2018"
+    paper_pdf: "https://proceedings.neurips.cc/paper/2018/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf"
+    selected: n
+
+  # - title: "Me, My Echo Chamber, and I: Introspection on Social Media Polarization"
+  #   authors: "Nabeel Gillani, Ann Yuan, <b>Martin Saveski</b>, Soroush Vosoughi, Deb Roy"
+  #   venue: "WWW'18: International Conference on the World Wide Web. 2018. <b>(Honarable mention)</b>"
+  #   paper_pdf: "/assets/publications/2018_social_mirror/paper.pdf"
+  #   video: "https://drive.google.com/file/d/0B9-P1m1JkZA7UTRuMUFWcTNueXM/view"
+  #   selected: y
+
+  # - title: "Detecting Network Effects: Randomizing Over Randomized Experiments"
+  #   authors: "<b>Martin Saveski<sup>‡</sup></b>, Jean Pouget-Abadie<sup>‡</sup>, Guillaume Saint-Jacques, Weitao Duan, Souvik Ghosh, Ya Xu, Edo Airoldi"
+  #   venue: "KDD'17: International Conference on Knowledge Discovery and Data Mining. 2017. (Research Track)"
+  #   paper_pdf: "/assets/publications/2017_detecting_network_effects/paper.pdf"
+  #   slides: "/assets/publications/2017_detecting_network_effects/slides.pdf"
+  #   video: "https://www.youtube.com/watch?v=1v5_CzdRVAc"
+  #   selected: y
+
+  # - title: "Human Atlas: A Tool for Mapping Social Networks"
+  #   authors: "<b>Martin Saveski</b>, Eric Chu, Soroush Vosoughi, Deb Roy"
+  #   venue: "WWW'16: International Conference on the World Wide Web. 2016. (Demo)"
+  #   paper_pdf: "/assets/publications/2016_human_atlas/paper.pdf"
+  #   video: "https://www.youtube.com/watch?v=OQOUHkJdA-U"
+  #   selected: n
+
+  # - title: "Topic Modeling in Twitter: Aggregating Tweets by Conversations"
+  #   authors: "David Alvarez-Melis<sup>‡</sup>, <b>Martin Saveski<sup>‡</sup></b>"
+  #   venue: "ICWSM'16: International AAAI Conference on Web and Social Media. 2016. (Short Paper)"
+  #   paper_pdf: "/assets/publications/2016_twitter_topic_modeling/paper.pdf"
+  #   poster: "/assets/publications/2016_twitter_topic_modeling/poster.pdf"
+  #   selected: n
+
+  # - title: "Tracking the Yak: An Empirical Study of Yik Yak"
+  #   authors: "<b>Martin Saveski</b>, Sophie Chou, Deb Roy."
+  #   venue: "ICWSM'16: International AAAI Conference on Web and Social Media. 2016. (Short Paper)"
+  #   paper_pdf: "/assets/publications/2016_yikyak/paper.pdf"
+  #   poster: "/assets/publications/2016_yikyak/poster.pdf"
+  #   selected: n
+
+  # - title: "One-Pass Ranking Models for Low-Latency Product Recommendations"
+  #   authors: "Antonino Freno, <b>Martin Saveski</b>, Rodolphe Jenatton, Cédric Archambeau"
+  #   venue: "KDD'15: International Conference on Knowledge Discovery and Data Mining. 2015. (Industry Track)"
+  #   paper_pdf: "/assets/publications/2015_one_pass_ranking_models/paper.pdf"
+  #   poster: "/assets/publications/2015_one_pass_ranking_models/poster.pdf"
+  #   slides: "/assets/publications/2015_one_pass_ranking_models/slides.pdf"
+  #   selected: y
+
+  # - title: "Item Cold-Start Recommendations: Learning Local Collective Embeddings"
+  #   authors: "<b>Martin Saveski</b>, Amin Mantrach."
+  #   venue: "RecSys'14, ACM Conference Series on Recommender Systems. 2014."
+  #   paper_pdf: "/assets/publications/2014_item_cold_start/paper.pdf"
+  #   slides: "/assets/publications/2014_item_cold_start/slides.pdf"
+  #   code: "https://github.com/msaveski/LCE"
+  #   selected: y
+
+  # - title: "The Geography of Online News Engagement"
+  #   authors: "<b>Martin Saveski</b>, Daniele Quercia, Amin Mantrach"
+  #   venue: "Socinfo'14: International Conference on Social Informatics. 2014."
+  #   paper_pdf: "/assets/publications/2014_geography_of_news/paper.pdf"
+  #   selected: n
+
+  # - title: "Joint semi-supervised Learning of Hidden Conditional Random Fields and Hidden Markov Models"
+  #   authors: "Yann Soullard, <b>Martin Saveski</b>, Thierry Artières"
+  #   venue: "Pattern Recognition Letters. 2013."
+  #   paper_pdf: "/assets/publications/2014_joint_semi_supervised_learning/paper.pdf"
+  #   selected: n
+
+  # - title: "Web Services for Stream Mining: A Stream-Based Active Learning Use Case"
+  #   authors: "<b>Martin Saveski</b>, Miha Grčar"
+  #   venue: "ECML'11, Workshop on Planning to Learn and Service-Oriented Knowledge Discovery. 2011."
+  #   paper_pdf: "/assets/publications/2011_active_learning/paper.pdf"
+  #   selected: n
+
+  # - title: "Automatic Construction of Wordnets by Using Machine Translation and Language Modeling"
+  #   authors: "<b>Martin Saveski</b>, Igor Trajkovski"
+  #   venue: "In Proceedings of Seventh Language Technologies Conference. 2010."
+  #   paper_pdf: "/assets/publications/2010_wordnet_construction/paper.pdf"
+  #   slides: "/assets/publications/2010_wordnet_construction/slides.pdf"
+  #   selected: n
+
+  # - title: "Development of an English-Macedonian Machine Readable Dictionary by Using Parallel Corpora"
+  #   authors: "<b>Martin Saveski</b>, Igor Trajkovski"
+  #   venue: "Proceedings of ICT Innovations Conference. 2010."
+  #   paper_pdf: "/assets/publications/2010_machine_readable_dictionaries/paper.pdf"
+  #   selected: n
