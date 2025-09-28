@@ -1,15 +1,21 @@
 papers:
 
+  - title: "On the surprising effectivess of large learning rates under standard width scaling"
+    authors: "Moritz Haas, Sebastian Bordt, Ulrike von Luxburg, <b>Leena C Vankadara*</b>"
+    venue: "NeurIPS 2025 <b style=color:#800020;>(Spotlight Presentation)</b>"
+    paper_pdf: "https://arxiv.org/abs/2505.22491"
+    selected: y
+
   - title: "On Feature Learning in Structured State Space Sequence Models"
     authors: "<b>Leena C Vankadara*</b>, Jin Xu*, Moritz Haas, Volkan Cevher"
-    venue: "ICML NGSM Workshop 2024 <b style=color:#800020;>(Spotlight; Runner up for the best paper award)</b>"
-    paper_pdf: "https://sites.google.com/view/ngsmworkshop/accepted-papers?authuser=0"
+    venue: "NeurIPS 2024 & ICML NGSM Workshop 2024 <b style=color:#800020;>(Spotlight; Runner up for the best paper award)</b>"
+    paper_pdf: "https://proceedings.neurips.cc/paper_files/paper/2024/file/9c7eeda2dc98e61baa9a5884afd231bc-Paper-Conference.pdf"
     selected: y
 
   - title: "Effective Sharpness Aware Minimization Requires Layerwise Perturbation Scaling"
     authors: "Moritz Haas, Jin Xu, Volkan Cevher, <b>Leena C Vankadara</b>"
-    venue: "ICML HiLD Workshop 2024"
-    paper_pdf: "https://openreview.net/forum?id=Qo6KUhQkPw"
+    venue: "NeurIPS 2024 & ICML HiLD Workshop 2024"
+    paper_pdf: "https://arxiv.org/abs/2411.00075"
     selected: y
 
   - title: "Self-compatibility: Evaluating causal discovery without ground truth"
