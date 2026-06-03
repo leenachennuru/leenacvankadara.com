@@ -1,6 +1,6 @@
 papers:
 
-  - title: "How to Scale Mixture of Experts"
+  - title: "How to Scale Mixture-of-Experts: From muP to the Maximally Scale-Stable Parameterization"
     authors: "<b>Leena C Vankadara</b>, Moritz Haas, Luke Hayward, Sebastian Bordt, Alessandro Breccia"
     venue: "ICML HiLD Workshop 2026 <b style=color:#800020;>(Oral Presentation)</b>"
     paper_pdf: "https://arxiv.org/abs/2605.14200"
