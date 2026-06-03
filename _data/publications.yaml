@@ -1,5 +1,23 @@
 papers:
 
+  - title: "How to Scale Mixture of Experts"
+    authors: "<b>Leena C Vankadara</b>, Moritz Haas, Luke Hayward, Sebastian Bordt, Alessandro Breccia"
+    venue: "ICML HiLD Workshop 2026 <b style=color:#800020;>(Oral Presentation)</b>"
+    paper_pdf: "https://arxiv.org/abs/2605.14200"
+    selected: y
+
+  - title: "Training Neural Networks at Any Scale"
+    authors: "Thomas Pethick, Kimon Antonakopoulos, Antonio Silveti-Falls, <b>Leena C Vankadara</b>, Volkan Cevher"
+    venue: "IEEE Signal Processing Magazine. 2026."
+    paper_pdf: "https://arxiv.org/abs/2511.11163"
+    selected: y
+
+  - title: "Optimal learning rate scaling depends on data in deep scalar linear networks"
+    authors: "Yedi Zhang, Peter E. Latham, <b>Leena C Vankadara</b>, Andrew M Saxe"
+    venue: "Sci4DL Workshop at ICLR 2026"
+    paper_pdf: "https://openreview.net/forum?id=ij3ZS20xMS"
+    selected: y
+
   - title: "On the surprising effectivess of large learning rates under standard width scaling"
     authors: "Moritz Haas, Sebastian Bordt, Ulrike von Luxburg, <b>Leena C Vankadara*</b>"
     venue: "NeurIPS 2025 <b style=color:#800020;>(Spotlight Presentation)</b>"
