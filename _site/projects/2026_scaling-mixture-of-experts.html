@@ -230,12 +230,14 @@
 
     /* ---- Footer ---- */
     .foot {
-      display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; justify-content: space-between;
       margin-top: clamp(3rem, 7vw, 4.5rem);
       padding-top: 1.4rem;
       border-top: 1px solid var(--line);
       font-size: 0.78rem; color: var(--faint);
     }
+    .foot__note { margin: 0 0 0.85rem; color: var(--muted); }
+    .foot__meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; justify-content: space-between; }
+    .authors__mark { color: var(--accent); }
     .foot a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
     .foot a:hover { color: var(--ink); border-color: var(--ink); }
   </style>
@@ -249,7 +251,7 @@
       <h1 class="title">How to Scale Mixture-of-Experts</h1>
       <p class="subtitle">From μP to the Maximally Scale-Stable Parameterization</p>
       
-      <p class="authors">Leena Chennuru Vankadara, Moritz Haas, Luke Hayward, Sebastian Bordt, Alessandro Breccia</p>
+      <p class="authors">Leena Chennuru Vankadara<sup class="authors__mark">∗</sup>, Moritz Haas<sup class="authors__mark">∗</sup>, Luke Hayward<sup class="authors__mark">†</sup>, Sebastian Bordt<sup class="authors__mark">†</sup>, Alessandro Breccia<sup class="authors__mark">†</sup></p>
       
       
       <nav class="actions">
@@ -328,8 +330,11 @@
 
 
     <footer class="foot">
-      <span>arXiv:2605.14200</span>
-      <span>ICML HiLD Workshop 2026</span>
+      <p class="foot__note">∗Equal first author.  †Equal contributor.</p>
+      <div class="foot__meta">
+        <span>arXiv:2605.14200</span>
+        <span>ICML HiLD Workshop 2026</span>
+      </div>
     </footer>
   </main>
 

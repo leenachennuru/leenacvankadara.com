@@ -230,12 +230,14 @@
 
     /* ---- Footer ---- */
     .foot {
-      display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; justify-content: space-between;
       margin-top: clamp(3rem, 7vw, 4.5rem);
       padding-top: 1.4rem;
       border-top: 1px solid var(--line);
       font-size: 0.78rem; color: var(--faint);
     }
+    .foot__note { margin: 0 0 0.85rem; color: var(--muted); }
+    .foot__meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; justify-content: space-between; }
+    .authors__mark { color: var(--accent); }
     .foot a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
     .foot a:hover { color: var(--ink); border-color: var(--ink); }
   </style>
@@ -249,7 +251,7 @@
       <h1 class="title">{{ page.title }}</h1>
       {% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
       {% if page.authors %}
-      <p class="authors">{% for a in page.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>
+      <p class="authors">{% for a in page.authors %}{{ a.name }}{% if a.mark %}<sup class="authors__mark">{{ a.mark }}</sup>{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>
       {% endif %}
       {% if page.links %}
       <nav class="actions">
@@ -274,8 +276,11 @@
     {{ content }}
 
     <footer class="foot">
-      {% if page.arxiv %}<span>arXiv:{{ page.arxiv }}</span>{% endif %}
-      {% if page.venue %}<span>{{ page.venue }}</span>{% endif %}
+      {% if page.author_note %}<p class="foot__note">{{ page.author_note }}</p>{% endif %}
+      <div class="foot__meta">
+        {% if page.arxiv %}<span>arXiv:{{ page.arxiv }}</span>{% endif %}
+        {% if page.venue %}<span>{{ page.venue }}</span>{% endif %}
+      </div>
     </footer>
   </main>
 

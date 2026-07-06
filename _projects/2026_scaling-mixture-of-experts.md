@@ -7,10 +7,16 @@ badge: Oral Presentation
 arxiv: "2605.14200"
 authors:
   - name: Leena Chennuru Vankadara
+    mark: "∗"
   - name: Moritz Haas
+    mark: "∗"
   - name: Luke Hayward
+    mark: "†"
   - name: Sebastian Bordt
+    mark: "†"
   - name: Alessandro Breccia
+    mark: "†"
+author_note: "∗Equal first author.  †Equal contributor."
 links:
   - label: Paper
     url: https://arxiv.org/abs/2605.14200
