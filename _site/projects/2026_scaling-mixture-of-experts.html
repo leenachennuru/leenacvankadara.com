@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Scale Mixture-of-Experts — From μP to the Maximally Scale-Stable Parameterization</title>
+  <meta name="description" content="From μP to the Maximally Scale-Stable Parameterization">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Scale Mixture-of-Experts">
+  <meta property="og:description" content="From μP to the Maximally Scale-Stable Parameterization">
+
+  <link rel="icon" type="image/png" href="/libs/icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:        #f5f4f0;
+      --surface:   #fbfaf8;
+      --ink:       #1b1a1f;
+      --ink-soft:  #34333a;
+      --muted:     #6c6a74;
+      --faint:     #97949f;
+      --line:      rgba(20,18,26,0.11);
+      --accent:    #b1502f;
+      --accent-tint: rgba(177,80,47,0.07);
+      --sel:       rgba(177,80,47,0.16);
+      --serif: "Newsreader", Georgia, "Times New Roman", serif;
+      --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #131217;
+        --surface:   #1b1a21;
+        --ink:       #ededf0;
+        --ink-soft:  #cbcad2;
+        --muted:     #9a98a4;
+        --faint:     #6f6d79;
+        --line:      rgba(255,255,255,0.11);
+        --accent:    #e08a63;
+        --accent-tint: rgba(224,138,99,0.12);
+        --sel:       rgba(224,138,99,0.22);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    ::selection { background: var(--sel); }
+    a { color: inherit; }
+
+    .paper {
+      max-width: 54rem;
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 5.5rem) clamp(1.35rem, 6vw, 2.25rem) clamp(3rem, 7vw, 4.5rem);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .paper { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    }
+
+    /* ---- Header ---- */
+    .venue {
+      display: flex; align-items: center; gap: 0.55rem;
+      margin: 0 0 1.5rem;
+      font-size: 0.74rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.13em;
+      color: var(--muted);
+    }
+    .venue .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+    .venue .badge { color: var(--accent); }
+
+    .title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.1rem, 5.2vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.018em;
+      margin: 0;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .subtitle {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.15rem, 2.7vw, 1.42rem);
+      line-height: 1.32;
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      text-wrap: balance;
+    }
+    .authors {
+      margin: 1.5rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .authors strong { color: var(--ink); font-weight: 600; }
+
+    .actions {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin: 1.7rem 0 0;
+    }
+    .action {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.95rem;
+      border: 1px solid var(--line); border-radius: 999px;
+      font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; color: var(--ink);
+      background: var(--surface);
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+    .action svg { width: 16px; height: 16px; color: var(--muted); transition: color 0.18s ease; }
+    .action:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); transform: translateY(-1px); }
+    .action:hover svg { color: var(--bg); }
+    .action:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ---- Notice ---- */
+    .notice {
+      display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap;
+      margin-top: 1.9rem;
+      padding: 0.85rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--accent-tint);
+    }
+    .notice__tag {
+      flex: none;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .notice p { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--ink-soft); }
+    .notice strong { color: var(--ink); font-weight: 600; }
+
+    .rule { height: 1px; background: var(--line); border: 0; margin: clamp(2.4rem, 6vw, 3.2rem) 0 0; }
+
+    /* ---- Figure ---- */
+    .figure { margin: 0; }
+    .figure__frame {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .figure__frame img { display: block; width: 100%; height: auto; }
+    .figure figcaption {
+      margin: 0.95rem clamp(0px, 4vw, 3.5rem) 0;
+      font-size: 0.85rem; line-height: 1.62;
+      color: var(--muted);
+    }
+    .figure figcaption strong { color: var(--ink); font-weight: 600; }
+    .figure figcaption em { color: var(--ink-soft); font-style: italic; }
+    @media (prefers-color-scheme: dark) {
+      .figure__frame { box-shadow: 0 3px 16px rgba(0,0,0,0.5); }
+    }
+
+    /* ---- Sections ---- */
+    .section { margin-top: clamp(2.2rem, 5.5vw, 3rem); }
+    .eyebrow {
+      margin: 0 0 0.85rem;
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--faint);
+    }
+    .lead {
+      margin: 0;
+      font-size: 1.06rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      text-align: justify;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+    .lead i, .list i { font-style: italic; }
+    @media (max-width: 640px) { .lead { text-align: left; } }
+
+    .list { margin: 0; padding: 0; list-style: none; }
+    .list li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.9rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    .list li:last-child { margin-bottom: 0; }
+    .list li::before {
+      content: ""; position: absolute; left: 0; top: 0.62em;
+      width: 6px; height: 6px; border-radius: 1.5px;
+      background: var(--accent);
+    }
+    .list li strong { color: var(--ink); font-weight: 600; }
+
+    /* ---- Cite / code ---- */
+    .codecard {
+      position: relative;
+      margin: 0;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .codecard pre {
+      margin: 0; padding: 1.15rem 1.25rem;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.8rem; line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    .copy {
+      position: absolute; top: 0.6rem; right: 0.6rem;
+      padding: 0.32rem 0.65rem;
+      font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+      color: var(--muted); background: var(--bg);
+      border: 1px solid var(--line); border-radius: 7px;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .copy:hover { color: var(--ink); border-color: var(--muted); }
+    .copy.is-copied { color: var(--accent); border-color: var(--accent); }
+
+    /* ---- Footer ---- */
+    .foot {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; justify-content: space-between;
+      margin-top: clamp(3rem, 7vw, 4.5rem);
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem; color: var(--faint);
+    }
+    .foot a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+    .foot a:hover { color: var(--ink); border-color: var(--ink); }
+  </style>
+</head>
+<body>
+  <main class="paper">
+    <header>
+      
+      <p class="venue"><span class="dot"></span>ICML HiLD Workshop 2026 <span class="badge">· Oral Presentation</span></p>
+      
+      <h1 class="title">How to Scale Mixture-of-Experts</h1>
+      <p class="subtitle">From μP to the Maximally Scale-Stable Parameterization</p>
+      
+      <p class="authors"><strong>Leena Chennuru Vankadara</strong>, Moritz Haas, Luke Hayward, Sebastian Bordt, Alessandro Breccia</p>
+      
+      
+      <nav class="actions">
+        
+        <a class="action" href="https://arxiv.org/abs/2605.14200" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+          <span>Paper</span>
+        </a>
+        
+        <a class="action" href="https://github.com/vankadara-lab/mssp-moe" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+          <span>Code</span>
+        </a>
+        
+      </nav>
+      
+      
+      <div class="notice">
+        <span class="notice__tag">Coming soon</span>
+        <p>An interactive blog post walking through the theory and experiments behind this work is in the works.</p>
+      </div>
+      
+    </header>
+
+    <hr class="rule">
+
+    <section class="section">
+  <figure class="figure">
+    <div class="figure__frame">
+      <img src="/assets/projects/2026_scaling-moe/figure1.png" alt="Four panels comparing μP and MSSP across MoE co-scaling regimes. Left panels (SGD, Adam) show MSSP recovering monotonic improvement with scale where μP degrades; right panels show learning-rate transfer under MSSP for Regimes II and III." />
+    </div>
+    <figcaption><strong>Figure 1.</strong> μP does not reliably improve performance with scale in MoEs. MSSP recovers monotonic improvement and delivers LR transfer across MoE co-scaling regimes. <em>Left:</em> Across optimizers and regimes, MSSP (solid lines) outperforms μP (dashed lines) at large scale for MLP MoEs on TinyImageNet. <em>Right:</em> LR transfer in validation loss for GPT MoEs trained with Adam in MSSP for 2.5B tokens when co-scaling width and number of (active) experts, with fixed expert width (Regime II) or co-scaled expert width (Regime III).</figcaption>
+  </figure>
+</section>
+
+<section class="section">
+  <h2 class="eyebrow">Abstract</h2>
+  <p class="lead">Recent frontier large language models predominantly rely on Mixture-of-Experts (MoE) architectures. Despite empirical progress, there is still no principled understanding of how hyperparameters should scale with network width <i>N</i>, expert width <i>N<sub>e</sub></i>, number of experts <i>M</i>, sparsity <i>K</i>, and depth <i>L</i> to ensure both stability and optimal performance at scale. We take a principled step toward resolving this gap by analyzing three different scaling regimes: (I) co-scaling <i>N</i>&nbsp;≍&nbsp;<i>N<sub>e</sub></i>, (II) co-scaling <i>N</i>&nbsp;≍&nbsp;<i>M</i>&nbsp;≍&nbsp;<i>K</i>, and (III) full proportional scaling of <i>N</i>, <i>N<sub>e</sub></i>, <i>M</i>, and <i>K</i>. For each regime, we develop a novel Dynamical Mean Field Theory (DMFT) description of the limiting training dynamics of MoEs that provides a formal foundation for our analysis. Within this framework, we derive the unique parameterization for SGD and Adam satisfying all maximal-update (μP) desiderata. We then show that the resulting μP prescription does not reliably induce monotonic improvement with scale or robust learning-rate transfer. We trace these pathologies to scale-dependent observables in the aggregation dynamics, which motivates a refined set of desiderata that we term <i>maximal scale stability</i>. Guided by this principle, we derive a Maximally Scale-Stable Parameterization (MSSP) for both SGD and Adam in all three scaling regimes, and characterize the corresponding limiting dynamics — qualitatively distinct from the μP limit — through a separate DMFT analysis. Experiments verify that MSSP robustly recovers learning rate transfer and monotonic improvement with scale across regimes. Combined with existing depth-scaling theory, these results provide a complete scaling prescription for MoE architectures as a function of width, depth, expert width, and number of experts.</p>
+</section>
+
+<section class="section">
+  <h2 class="eyebrow">Contributions</h2>
+  <p class="lead">We study three co-scaling regimes for MoEs: <strong>Regime I</strong> — <i>N</i>&nbsp;≍&nbsp;<i>N<sub>e</sub></i>&nbsp;→&nbsp;∞ with <i>M</i>, <i>K</i> fixed; <strong>Regime II</strong> — <i>N</i>&nbsp;≍&nbsp;<i>M</i>&nbsp;≍&nbsp;<i>K</i>&nbsp;→&nbsp;∞ with <i>N<sub>e</sub></i> fixed, the fine-grained / bottleneck regime increasingly favored in modern MoE designs; and <strong>Regime III</strong> — joint scaling <i>N</i>&nbsp;≍&nbsp;<i>N<sub>e</sub></i>&nbsp;≍&nbsp;<i>M</i>&nbsp;≍&nbsp;<i>K</i>&nbsp;→&nbsp;∞.</p>
+
+  <figure class="figure" style="margin-top: 1.9rem;">
+    <div class="figure__frame">
+      <img src="/assets/projects/2026_scaling-moe/figure2.png" alt="A 2×2 schematic: (a) the Transformer-MoE architecture, and the MoE block under (b) Regime I, (c) Regime II, and (d) Regime III, with active experts shown in orange and inactive experts in grey." />
+    </div>
+    <figcaption><strong>Figure 2.</strong> Transformer-MoE architecture and the MoE block under the three scaling regimes.</figcaption>
+  </figure>
+
+  <p class="lead" style="margin-top: 1.9rem; margin-bottom: 1.5rem;">Across these regimes, we make the following contributions:</p>
+  <ul class="list">
+    <li><strong>μP for MoEs across regimes and optimizers.</strong> In each scaling regime, we derive the parameterizations that satisfy the μP desiderata for SGD and Adam via signal propagation analyses which are formally justified by a novel Dynamical Mean Field Theory (DMFT) for each scaling regime.</li>
+    <li><strong>Scale-dependence of μP in MoEs.</strong> Despite formally satisfying the μP desiderata, we find that μ-parameterizations do not reliably deliver learning-rate transfer or monotonic improvement with scale in MoEs (Fig. 1, 5 and 6). We trace this to scale-dependence in the training dynamics.</li>
+    <li><strong>Maximally Scale-Stable Parameterization (MSSP).</strong> We propose <em>maximal scale stability</em> as a refined principle generalizing μP desiderata, and derive the Maximally Scale-Stable Parameterization (MSSP) for SGD and Adam in each regime. The required corrections to μP are structurally distinct across regimes: zero router initialization in Regime I, amplified expert-output initialization variance (1/<i>N<sub>e</sub></i> to <i>M</i>/<i>N<sub>e</sub></i>) in Regime II, and shared expert weights at initialization in Regime III.</li>
+    <li><strong>DMFT under MSSP.</strong> We derive a self-consistent DMFT for the limiting training dynamics in each regime under MSSP, including a four-level conditional mean-field hierarchy in Regime III induced by the shared expert initialization, qualitatively distinct from the limiting dynamics under μP.</li>
+    <li><strong>Empirical validation.</strong> We verify on MLP and Transformer MoEs that MSSP robustly recovers learning-rate transfer, and restores monotonic improvement with scale across all three regimes. We provide a complete scaling prescription for modern Transformer MoE architectures along width <i>N</i>, depth <i>L</i>, number of experts <i>M</i>, expert width <i>N<sub>e</sub></i> and number of active experts <i>K</i>.</li>
+  </ul>
+</section>
+
+<section class="section">
+  <h2 class="eyebrow">Cite</h2>
+  <div class="codecard">
+    <button class="copy" type="button" data-copy="#bibtex">Copy</button>
+    <pre><code id="bibtex">@article{vankadara2026mssp,
+  title   = {How to Scale Mixture-of-Experts: From {$\mu$}P to the
+             Maximally Scale-Stable Parameterization},
+  author  = {Chennuru Vankadara, Leena and Haas, Moritz and Hayward, Luke
+             and Bordt, Sebastian and Breccia, Alessandro},
+  journal = {arXiv preprint arXiv:2605.14200},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+
+    <footer class="foot">
+      <span>arXiv:2605.14200</span>
+      <span>ICML HiLD Workshop 2026</span>
+    </footer>
+  </main>
+
+  <script>
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:absolute;left:-9999px;top:0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    document.querySelectorAll('.copy[data-copy]').forEach(function (btn) {
+      var original = btn.textContent;
+      function flash() {
+        btn.textContent = 'Copied';
+        btn.classList.add('is-copied');
+        setTimeout(function () { btn.textContent = original; btn.classList.remove('is-copied'); }, 1600);
+      }
+      btn.addEventListener('click', function () {
+        var el = document.querySelector(btn.getAttribute('data-copy'));
+        if (!el) return;
+        var text = el.innerText.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(flash, function () { fallbackCopy(text); flash(); });
+        } else {
+          fallbackCopy(text);
+          flash();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
