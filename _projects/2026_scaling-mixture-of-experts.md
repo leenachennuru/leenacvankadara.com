@@ -7,7 +7,6 @@ badge: Oral Presentation
 arxiv: "2605.14200"
 authors:
   - name: Leena Chennuru Vankadara
-    me: true
   - name: Moritz Haas
   - name: Luke Hayward
   - name: Sebastian Bordt
