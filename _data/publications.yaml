@@ -75,7 +75,7 @@ papers:
     selected: y
 
   - title: "Causal Forecasting - Generalization Bounds for Autoregressive Models"
-    authors: "<b>Leena C Vankadara</b>, Philipp Michael Faller, Mila Hardt, Lenon Minorics, Debarghya Ghoshdastidar, Dominik Janzing"
+    authors: "<b>Leena C Vankadara</b>, Philipp Michael Faller, Michaela Hardt, Lenon Minorics, Debarghya Ghoshdastidar, Dominik Janzing"
     venue: "UAI'22: Uncertainity in Artificial Intelligence. 2022."
     paper_pdf: "https://arxiv.org/pdf/2111.09831.pdf"
     selected: y
