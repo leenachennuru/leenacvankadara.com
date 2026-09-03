@@ -6,6 +6,12 @@ papers:
     paper_pdf: "https://arxiv.org/abs/2605.14200"
     selected: y
 
+  - title: "Why Routers Freeze: Infinite Width Learning Dynamics for Mixture of Experts"
+    authors: "Anish Dhir, Volkan Cevher, <b>Leena C Vankadara</b>"
+    venue: "ICML HiLD Workshop 2026"
+    paper_pdf: "https://openreview.net/forum?id=AhwB471ARJ"
+    selected: y
+
   - title: "Training Neural Networks at Any Scale"
     authors: "Thomas Pethick, Kimon Antonakopoulos, Antonio Silveti-Falls, <b>Leena C Vankadara</b>, Volkan Cevher"
     venue: "IEEE Signal Processing Magazine. 2026."
@@ -14,7 +20,7 @@ papers:
 
   - title: "Optimal learning rate scaling depends on data in deep scalar linear networks"
     authors: "Yedi Zhang, Peter E. Latham, <b>Leena C Vankadara</b>, Andrew M Saxe"
-    venue: "Sci4DL Workshop at ICLR 2026"
+    venue: "Sci4DL Workshop at ICLR 2026 & ICML HiLD Workshop 2026"
     paper_pdf: "https://openreview.net/forum?id=ij3ZS20xMS"
     selected: y
 
