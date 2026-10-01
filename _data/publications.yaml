@@ -2,13 +2,13 @@ papers:
 
   - title: "How to Scale Mixture-of-Experts: From muP to the Maximally Scale-Stable Parameterization"
     authors: "<b>Leena C Vankadara</b>, Moritz Haas, Luke Hayward, Sebastian Bordt, Alessandro Breccia"
-    venue: "ICML HiLD Workshop 2026 <b style=color:#800020;>(Oral Presentation)</b>"
+    venue: "NeurIPS 2026 & ICML HiLD Workshop 2026 <b style=color:#800020;>(Oral Presentation)</b>"
     paper_pdf: "https://arxiv.org/abs/2605.14200"
     selected: y
 
   - title: "Why Routers Freeze: Infinite Width Learning Dynamics for Mixture of Experts"
     authors: "Anish Dhir, Volkan Cevher, <b>Leena C Vankadara</b>"
-    venue: "ICML HiLD Workshop 2026"
+    venue: "NeurIPS 2026 & ICML HiLD Workshop 2026"
     paper_pdf: "https://openreview.net/forum?id=AhwB471ARJ"
     selected: y
 
