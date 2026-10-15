@@ -2,7 +2,7 @@
 layout: paper
 title: How to Scale Mixture-of-Experts
 subtitle: From μP to the Maximally Scale-Stable Parameterization
-venue: ICML HiLD Workshop 2026
+venue: NeurIPS 2026 & ICML HiLD Workshop 2026
 badge: Oral Presentation
 arxiv: "2605.14200"
 authors:
